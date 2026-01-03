@@ -1,0 +1,149 @@
+<div class="min-h-screen bg-indigo-100 flex justify-center items-start p-6">
+  <div class="w-full max-w-6xl bg-white rounded-2xl shadow-lg p-6 space-y-6">
+
+    <!-- HEADER -->
+    <div class="text-center space-y-2">
+      <h2 class="text-2xl font-semibold text-indigo-700">
+        Convertir TXT a KML / GeoJSON
+      </h2>
+      <p class="text-sm text-slate-600">
+        Archivo separado por tabulaciones (GLM)
+      </p>
+    </div>
+
+    <hr class="border-slate-200" />
+
+    <!-- FORMAT SELECTOR -->
+    <div *ngIf="previewData.length === 0" class="flex justify-center">
+      <div class="inline-flex rounded-lg border border-slate-300 overflow-hidden">
+        <button
+          type="button"
+          (click)="outputFormat = 'kml'"
+          [ngClass]="outputFormat === 'kml'
+            ? 'bg-indigo-600 text-white'
+            : 'bg-white text-slate-700'"
+          class="px-4 py-2 text-sm font-medium transition"
+        >
+          KML
+        </button>
+
+        <button
+          type="button"
+          (click)="outputFormat = 'geojson'"
+          [ngClass]="outputFormat === 'geojson'
+            ? 'bg-indigo-600 text-white'
+            : 'bg-white text-slate-700'"
+          class="px-4 py-2 text-sm font-medium transition"
+        >
+          GeoJSON
+        </button>
+      </div>
+    </div>
+
+    <!-- FILE INPUT -->
+    <div class="flex justify-center">
+      <input
+        #fileInput
+        type="file"
+        accept=".txt,.csv"
+        hidden
+        (change)="onFileSelected($event)"
+      />
+
+      <button
+        type="button"
+        (click)="fileInput.click()"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-lg
+               bg-indigo-600 text-white hover:bg-indigo-700 transition"
+      >
+        ⬆ Seleccionar archivo
+      </button>
+    </div>
+
+    <!-- ACTIONS -->
+    <div *ngIf="previewData.length > 0"
+         class="flex flex-wrap justify-end gap-3">
+
+      <button
+        type="button"
+        (click)="clearData()"
+        class="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition"
+      >
+        🗑 Borrar datos
+      </button>
+
+      <button
+        *ngIf="kmlData"
+        type="button"
+        (click)="downloadKML()"
+        class="px-4 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition"
+      >
+        ⬇ Descargar KML
+      </button>
+
+      <button
+        *ngIf="geoJsonData"
+        type="button"
+        (click)="downloadGeoJSON()"
+        class="px-4 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition"
+      >
+        ⬇ Descargar GeoJSON
+      </button>
+    </div>
+
+    <!-- PREVIEW TABLE -->
+    <div *ngIf="previewData.length > 0" class="space-y-3">
+      <p class="text-center font-semibold text-slate-800">
+        Ruta {{ numberRoute }}
+      </p>
+
+      <div class="overflow-x-auto rounded-lg border border-slate-200">
+        <table class="min-w-full text-sm">
+          <thead class="bg-slate-100 text-slate-700">
+            <tr>
+              <th *ngFor="let col of displayedColumns"
+                  class="px-3 py-2 text-left font-medium border-b">
+                {{ col | titlecase }}
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let row of previewData"
+                class="odd:bg-white even:bg-slate-50">
+              <td *ngFor="let col of displayedColumns"
+                  class="px-3 py-2 border-b text-slate-700">
+                {{ row[col] }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="space-y-2 text-center text-sm text-slate-600">
+      <p *ngIf="!previewData.length">
+        Seleccioná un archivo TXT separado por tabulaciones (secuencial generado en GLM)
+        para generar el KML o GeoJSON.
+      </p>
+
+      <p>
+        El KML puede cargarse en
+        <a href="https://organicmaps.app/es/"
+           target="_blank"
+           class="text-indigo-600 underline">
+          Organic Maps
+        </a>.
+        El GeoJSON es compatible con QGIS.
+      </p>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="pt-4 border-t border-slate-200 text-center text-xs text-slate-500">
+      <p>Última modificación: 21/12/2025</p>
+      <p class="font-semibold text-indigo-600 mt-1">WR60</p>
+    </div>
+
+  </div>
+</div>
