@@ -2,7 +2,7 @@
   <div class="w-full max-w-5xl bg-white rounded-2xl shadow-lg p-6 pb-2 space-y-6">
 
     <!-- HEADER -->
-    <div class="text-center pt-5">
+    <div class="text-center space-y-2  pt-5">
       <h2 class="text-3xl font-semibold font-mono text-[#003366]  ">
         CSV Discar a TXT
       </h2>
@@ -37,9 +37,17 @@
       />
 
       <p *ngIf="!previewData.length" class="text-slate-600 text-lg leading-relaxed max-w-3xl font-mono  text-center max-md:text-sm">
-        Selecciona un archivo de exportación de lectura de acumuladores (.CSV) de Discar.
-        Se agregan los campos <a class="underline decoration-2 decoration-sky-500">Medidor</a>, <a class="underline decoration-2 decoration-yellow-400">kWh</a> y <a class="underline decoration-2 decoration-sky-500">Fecha</a>, y se genera un TXT separado por tabulaciones listo
-        para subir a GLM.
+        Selecciona un <a class="font-bold">archivo de exportación de lectura de acumuladores</a> (<a class="bg-slate-100 rounded">.csv</a>) de <a href="https://esquel.mrdims.com/admin/Usuarios/Login#/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="block" class="rounded p-0.4 px-0.5 bg-[#003366] hover:bg-[#015ab3] text-white">Discar</a>.
+        Se agregan los campos <a class="font-semibold underline decoration-2 decoration-sky-500">Medidor</a>, <a class="font-semibold underline decoration-2 decoration-yellow-400">kWh</a> y <a class="font-semibold underline decoration-2 decoration-sky-500">Fecha</a>, y se genera un <a class="bg-slate-100 rounded">.txt</a> separado por tabulaciones listo
+        para subir a <a
+        href="https://comer.coop16.com.ar/COOP16_SERVICIOS_PROD/servlet/ar.com.glmsa.servicios.comercial.hlogin"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="block" class="bg-[#0164B8] hover:bg-[#0183f5] text-white rounded p-0.4 px-0.5 "
+      >Comercial</a> (GLM suite).
       </p>
     </div>
 
