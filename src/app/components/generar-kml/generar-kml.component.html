@@ -1,9 +1,9 @@
-<div class="min-h-screen bg-indigo-100 flex justify-center items-start p-6">
+<div class="min-h-screen bg-slate-100 flex justify-center items-start p-6 pt-20">
   <div class="w-full max-w-6xl bg-white rounded-2xl shadow-lg p-6 space-y-6">
 
     <!-- HEADER -->
     <div class="text-center space-y-2">
-      <h2 class="text-2xl font-semibold text-indigo-700">
+      <h2 class="text-2xl font-semibold text-[#2D8953]">
         Convertir TXT a KML / GeoJSON
       </h2>
       <p class="text-sm text-slate-600">
@@ -20,7 +20,7 @@
           type="button"
           (click)="outputFormat = 'kml'"
           [ngClass]="outputFormat === 'kml'
-            ? 'bg-indigo-600 text-white'
+            ? 'bg-[#2D8953] text-white'
             : 'bg-white text-slate-700'"
           class="px-4 py-2 text-sm font-medium transition"
         >
@@ -31,7 +31,7 @@
           type="button"
           (click)="outputFormat = 'geojson'"
           [ngClass]="outputFormat === 'geojson'
-            ? 'bg-indigo-600 text-white'
+            ? 'bg-[#2fb466] text-white'
             : 'bg-white text-slate-700'"
           class="px-4 py-2 text-sm font-medium transition"
         >
@@ -54,7 +54,7 @@
         type="button"
         (click)="fileInput.click()"
         class="inline-flex items-center gap-2 px-4 py-2 rounded-lg
-               bg-indigo-600 text-white hover:bg-indigo-700 transition"
+               bg-[#2D8953] text-white hover:bg-[#2fb466] transition"
       >
         ⬆ Seleccionar archivo
       </button>

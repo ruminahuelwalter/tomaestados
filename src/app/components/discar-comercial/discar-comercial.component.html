@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-sky-800 flex items-start justify-center pt-20 ">
+<div class="min-h-screen bg-[#F1F5F9] flex items-start justify-center pt-20 ">
   <div class="w-full max-w-5xl bg-white rounded-2xl shadow-lg p-6 space-y-6">
 
     <!-- HEADER -->
@@ -6,7 +6,7 @@
       <h2 class="text-2xl font-semibold font-mono text-slate-800  ">
         CSV Discar a TXT
       </h2>
-      <p class="text-lg text-slate-600 font-mono">
+      <p class="text-sm text-slate-600 font-mono">
         Conversión de exportación Discar a formato GLM
       </p>
     </div>
@@ -14,11 +14,11 @@
     <hr class="border-slate-200" />
 
     <!-- FILE -->
-    <div class="flex flex-col gap-4 items-center">
+    <div class="flex flex-col gap-4 items-center ">
       <button
         type="button"
-        class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition w-fit"
-        (click)="fileInput.click()"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#FF5733] text-white hover:text-slate-100 hover:bg-[#3096E1] transition w-fit "
+        (click)="fileInput.click()" 
       >
         <!-- icon -->
         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
@@ -37,7 +37,7 @@
         (change)="onFileSelected($event)"
       />
 
-      <p *ngIf="!previewData.length" class="text-slate-600 text-lg leading-relaxed max-w-3xl font-mono  text-center">
+      <p *ngIf="!previewData.length" class="text-slate-600 text-sm leading-relaxed max-w-3xl font-mono  text-center">
         Seleccioná un archivo de exportación de lectura de acumuladores (.CSV) de Discar.
         Se agregan los campos Medidor, KWh y Fecha, y se genera un TXT separado por tabulaciones listo
         para subir a GLM.

@@ -13,7 +13,7 @@ import Papa from 'papaparse';
   templateUrl: './temetra-comercial.component.html',
   styleUrl: './temetra-comercial.component.css'
 })
-export class ConvertirCvsTextoPaparseComponent {
+export class TemetraComercialComponent {
   convertedText: string = '';
   fileName: string = '';
   defaultFileName: string = 'convertido';
