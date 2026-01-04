@@ -36,7 +36,7 @@
         (change)="onFileSelected($event)"
       />
 
-      <p *ngIf="!previewData.length" class="text-slate-600 text-lg leading-relaxed max-w-3xl font-mono  text-center">
+      <p *ngIf="!previewData.length" class="text-slate-600 text-lg leading-relaxed max-w-3xl font-mono  text-center max-md:text-sm">
         Selecciona un archivo de exportación de lectura de acumuladores (.CSV) de Discar.
         Se agregan los campos <a class="underline decoration-2 decoration-sky-500">Medidor</a>, <a class="underline decoration-2 decoration-yellow-400">kWh</a> y <a class="underline decoration-2 decoration-sky-500">Fecha</a>, y se genera un TXT separado por tabulaciones listo
         para subir a GLM.
