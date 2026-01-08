@@ -39,21 +39,20 @@ export class DiscarComercialComponent {
   colFechaHoraFinal = 'FechaHoraFinal';
 
   visibleColumns: string[] = [
-  'NumeroDeSerie',
-  'Contrato',
-  'Titular',
-  'FechaHoraFinal',
-  'ActivaT0Final',
-  'Mdd',
-  'KWh',
-  'Fecha'
+    'NumeroDeSerie',
+    'Contrato',
+    'Titular',
+    'FechaHoraFinal',
+    'ActivaT0Final',
+    'Mdd',
+    'KWh',
+    'Fecha'
   ];
   
 
 
   onFileSelected(event: Event) {
     
-
     const input = event.target as HTMLInputElement;
     if (!input.files || input.files.length === 0) return;
 
@@ -119,53 +118,53 @@ export class DiscarComercialComponent {
   }
 
   normalizarFechaCompleta(valor: any): string {
-  if (valor === null || valor === undefined) return '';
-  const s = String(valor).trim();
+    if (valor === null || valor === undefined) return '';
+    const s = String(valor).trim();
 
-  const m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})(?:\s+(\d{1,2}):(\d{1,2})(?::(\d{1,2}))?)?$/);
-  if (!m) return s;
+    const m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})(?:\s+(\d{1,2}):(\d{1,2})(?::(\d{1,2}))?)?$/);
+    if (!m) return s;
 
-  let [, d, mth, y, hh, mm, ss] = m;
+    let [, d, mth, y, hh, mm, ss] = m;
 
-  if (y.length === 2) y = '20' + y;
-
-  const dia = d.padStart(2, '0');
-  const mes = mth.padStart(2, '0');
-  const hora = hh ? hh.padStart(2, '0') : '00';
-  const minuto = mm ? mm.padStart(2, '0') : '00';
-
-  if (ss) {
-    const segundo = ss.padStart(2, '0');
-    return `${dia}/${mes}/${y} ${hora}:${minuto}:${segundo}`;
-  }
-
-  return `${dia}/${mes}/${y} ${hora}:${minuto}`;
-}
-
-
-  normalizarSoloFecha(valor: any): string {
-  if (!valor) return '';
-  const s = String(valor).trim();
-  const [fecha] = s.split(/\s+/);
-
-  const m = fecha.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
-  if (m) {
-    let [, d, mth, y] = m;
     if (y.length === 2) y = '20' + y;
 
     const dia = d.padStart(2, '0');
     const mes = mth.padStart(2, '0');
+    const hora = hh ? hh.padStart(2, '0') : '00';
+    const minuto = mm ? mm.padStart(2, '0') : '00';
 
-    return `${dia}/${mes}/${y}`;
+    if (ss) {
+      const segundo = ss.padStart(2, '0');
+      return `${dia}/${mes}/${y} ${hora}:${minuto}:${segundo}`;
+    }
+
+    return `${dia}/${mes}/${y} ${hora}:${minuto}`;
   }
 
-  const iso = new Date(s.replace(' ', 'T'));
-  if (!isNaN(iso.getTime())) {
-    const dia = String(iso.getDate()).padStart(2, '0');
-    const mes = String(iso.getMonth() + 1).padStart(2, '0');
-    const anio = iso.getFullYear();
-    return `${dia}/${mes}/${anio}`;
-  }
+
+  normalizarSoloFecha(valor: any): string {
+    if (!valor) return '';
+    const s = String(valor).trim();
+    const [fecha] = s.split(/\s+/);
+
+    const m = fecha.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
+    if (m) {
+      let [, d, mth, y] = m;
+      if (y.length === 2) y = '20' + y;
+
+      const dia = d.padStart(2, '0');
+      const mes = mth.padStart(2, '0');
+
+      return `${dia}/${mes}/${y}`;
+    }
+
+    const iso = new Date(s.replace(' ', 'T'));
+    if (!isNaN(iso.getTime())) {
+      const dia = String(iso.getDate()).padStart(2, '0');
+      const mes = String(iso.getMonth() + 1).padStart(2, '0');
+      const anio = iso.getFullYear();
+      return `${dia}/${mes}/${anio}`;
+    }
 
   return fecha;
 }
