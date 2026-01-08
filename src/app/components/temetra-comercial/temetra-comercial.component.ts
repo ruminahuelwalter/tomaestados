@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Papa from 'papaparse';
@@ -14,6 +14,9 @@ import Papa from 'papaparse';
   styleUrl: './temetra-comercial.component.css'
 })
 export class TemetraComercialComponent {
+  @ViewChild('fileInput', { static: false })
+    fileInput!: ElementRef<HTMLInputElement>;
+
   convertedText: string = '';
   fileName: string = '';
   defaultFileName: string = 'convertido';
@@ -30,11 +33,8 @@ export class TemetraComercialComponent {
         // Correccion 
         // Asegurar que todas las filas tengan el mismo número de columnas
         const maxCols = Math.max(...rows.map(r => r.length));
-        console.log('maxCol: ', maxCols)
         rows = rows.map(r => {
-          console.log('entre')
           while (r.length < maxCols) {
-            console.log('entre')
             r.push(""); // completar columnas vacías como hace Excel
           }
           return r;
@@ -51,7 +51,7 @@ export class TemetraComercialComponent {
         const nombres = new Set<string>();
         rows.slice(1).forEach(r => {
           const valor = r[53]?.trim();
-          console.log('valor: ', valor)
+         
           if (valor) nombres.add(valor);
         });
 
@@ -83,36 +83,47 @@ export class TemetraComercialComponent {
 
 
   normalizarFechaCSV(valor: string): string {
-  const regex = /^(\d{1,2})\/(\d{1,2})\/(\d{2,4})(?:\s+(\d{1,2}):(\d{1,2})(?::(\d{1,2}))?)?$/;
-  const m = valor.match(regex);
-  if (!m) return valor;
+    const regex = /^(\d{1,2})\/(\d{1,2})\/(\d{2,4})(?:\s+(\d{1,2}):(\d{1,2})(?::(\d{1,2}))?)?$/;
+    const m = valor.match(regex);
+    if (!m) return valor;
 
-  let [, d, mth, y, hh, mm, ss] = m;
+    let [, d, mth, y, hh, mm, ss] = m;
 
-  // Año en 4 dígitos
-  if (y.length === 2) y = '20' + y;
+    // Año en 4 dígitos
+    if (y.length === 2) y = '20' + y;
 
-  // Ceros día/mes
-  const dia = d.padStart(2, '0');
-  const mes = mth.padStart(2, '0');
+    // Ceros día/mes
+    const dia = d.padStart(2, '0');
+    const mes = mth.padStart(2, '0');
 
-  // Si no hay hora → solo fecha
-  if (!hh || !mm) {
-    return `${dia}/${mes}/${y}`;
+    // Si no hay hora → solo fecha
+    if (!hh || !mm) {
+      return `${dia}/${mes}/${y}`;
+    }
+
+    // Ceros en hora y minutos (IMPORTANTE PARA GENEXUS)
+    const hora = hh.padStart(2, '0');
+    const minuto = mm.padStart(2, '0');
+
+    // Si hay segundos → conservarlos
+    if (ss) {
+      const segundo = ss.padStart(2, '0');
+      return `${dia}/${mes}/${y} ${hora}:${minuto}:${segundo}`;
+    }
+
+    return `${dia}/${mes}/${y} ${hora}:${minuto}`;
   }
+  
+  clearData(){
+    this.convertedText = '';
+    this.fileName = '';
+    this.defaultFileName= 'convertido';
+    if (this.fileInput?.nativeElement) {
+      this.fileInput.nativeElement.value = '';
+    }
+   
 
-  // Ceros en hora y minutos (IMPORTANTE PARA GENEXUS)
-  const hora = hh.padStart(2, '0');
-  const minuto = mm.padStart(2, '0');
-
-  // Si hay segundos → conservarlos
-  if (ss) {
-    const segundo = ss.padStart(2, '0');
-    return `${dia}/${mes}/${y} ${hora}:${minuto}:${segundo}`;
   }
-
-  return `${dia}/${mes}/${y} ${hora}:${minuto}`;
-}
 
 
 
