@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  @keyframes slide-vertical {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-1.5rem); }
+    /* 66%  { transform: translateY(-3rem); } */
+    100% { transform: translateY(0); }
+  }
+
+  .animate-slide-vertical {
+    animation: slide-vertical 9s infinite;
+  }
+
+  .pause-animation {
+    animation-play-state: paused;
+  }
+}
